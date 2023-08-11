@@ -25,8 +25,8 @@ function searchAlbums(query) {
         }
     });
 
-    xhr.open('GET', `https://spotify23.p.rapidapi.com/search/?q=${encodeURIComponent(query)}&type=multi&offset=0&limit=10&numberOfTopResults=5`);
-    xhr.setRequestHeader('X-RapidAPI-Key', '210e16b5c9msha94201f49a80e2cp101a33jsna5b37d148676');
+    xhr.open('GET', `https://spotify23.p.rapidapi.com/search/?q=${encodeURIComponent(query)}&type=multi&offset=0&limit=100&numberOfTopResults=10`);
+    xhr.setRequestHeader('X-RapidAPI-Key', 'b2f5bc78cbmsh449285586b543e1p1f88e3jsn0ba8e00d544e');
     xhr.setRequestHeader('X-RapidAPI-Host', 'spotify23.p.rapidapi.com');
     xhr.send();
 }
@@ -56,8 +56,13 @@ function createAlbumCard(album) {
     releaseYear.textContent = `Release Year: ${album.date.year}`;
     albumInfo.appendChild(releaseYear);
 
+    let artisturi = album.uri;
+    let artistID = artisturi.split(":")[2];
+    let artistsongurl = `https://open.spotify.com/album/${artistID}`;
+    console.log(artistsongurl);
+
     const albumLink = document.createElement("a");
-    albumLink.href = album.uri;
+    albumLink.href = artistsongurl;
     albumLink.target = "_blank";
     albumLink.textContent = "View on Spotify";
     albumLink.classList.add("album-link");
